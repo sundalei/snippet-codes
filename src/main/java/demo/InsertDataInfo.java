@@ -23,14 +23,15 @@ public class InsertDataInfo {
         try {
             Class.forName(JDBC_DRIVER);
 
-            String sql = "INSERT INTO storage_file (name, last_modified, created_at) VALUES (?, utc_timestamp(), utc_timestamp())";
+            String insertSql = "INSERT INTO storage_file (name, last_modified, created_at) VALUES (?, utc_timestamp(), utc_timestamp())";
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
 
             int col = 1;
-            statement.setString(col++, "hello" + System.currentTimeMillis());
+            statement.setString(col++, "hello");
 
             var rows = statement.executeUpdate();
+            statement.executeUpdate();
 
             if (rows == 1) {
                 ResultSet rs = statement.getGeneratedKeys();

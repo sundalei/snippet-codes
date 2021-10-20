@@ -3,12 +3,22 @@ package demo;
 import java.time.ZonedDateTime;
 
 public class FileInfo {
-    
+
+    private int id;
+
     private String name;
 
     private ZonedDateTime lastModified;
 
     private ZonedDateTime createdAt;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -32,5 +42,15 @@ public class FileInfo {
 
     public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+
+        return "FileInfo{" +
+                "name='" + name + '\'' +
+                ", lastModified=" + lastModified +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }
