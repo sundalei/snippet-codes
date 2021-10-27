@@ -9,12 +9,8 @@ import java.sql.Statement;
 
 public class InsertDataInfo {
 
-    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/demo?"
-            + "useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-
-    static final String USER = "root";
-    static final String PASS = "root";
+    static final String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=demo2;integratedSecurity=true";
 
     public static void main(String[] args) {
         Connection connection = null;
@@ -23,12 +19,12 @@ public class InsertDataInfo {
         try {
             Class.forName(JDBC_DRIVER);
 
-            String insertSql = "INSERT INTO storage_file (name, last_modified, created_at) VALUES (?, utc_timestamp(), utc_timestamp())";
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            String insertSql = "INSERT INTO storage_file (name, last_modified, created_at) VALUES (?, GETUTCDATE(), GETUTCDATE())";
+            connection = DriverManager.getConnection(DB_URL);
             statement = connection.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
 
             int col = 1;
-            statement.setString(col++, "hello");
+            statement.setString(col++, "hello_insert");
 
             var rows = statement.executeUpdate();
             statement.executeUpdate();
